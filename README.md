@@ -55,6 +55,7 @@ Player contains basic information about a player and references Team. There is a
 but there is no game date, which would make uniqueness check possible to enforce that pair of (player_id, game_date) is unique.
 * Indices on foreign keys to enhance the joins
 * There is a batch processing enabled to have performant addition of stats.
+* Version was added to all entities for optimistic locking, in case of non-human usage where exception can happen it gives a chance to gracefully retry 
 * I was considering materialized view for the improved performance of reading all stats per season but there would be a need
 to refresh it every time we insert the data to satisfy requirement of always fresh data served. 
 In case of more writes than reads it won't make much sense, but if reads are much more often it makes sense to do later on.
@@ -71,3 +72,4 @@ for the max performance in current setup.
 * Setup of two instances of backend to showcase the scalability 
 * Partitions of stats table
 * Parametrize proxy url and port in nginx config so that it can be passed from docker compose instead of being hardcoded
+* APIs to add teams/players and to edit stats after addition. 
